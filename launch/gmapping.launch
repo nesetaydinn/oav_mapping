@@ -1,0 +1,16 @@
+<launch>
+    <arg name="prefix" default="rNESH"/>
+    <arg name="rviz_conf" default="$(find oav_mapping)/config/rviz/gmapping.rviz"/>
+    
+    <include file="$(find oav_mapping)/launch/bringup.launch">
+        <arg name="prefix" value="$(arg prefix)"/>
+        <arg name="rviz_conf" value="$(arg rviz_conf)"/>
+        <arg name="rviz" value="true"/>
+    </include>
+
+    <node name="slam_gmapping" pkg="gmapping" type="slam_gmapping">
+        <rosparam file="$(find oav_mapping)/config/gmapping_slam.yaml" command="load" subst_value="true" />
+        <remap from="scan" to="$(arg prefix)/scan"/>
+    </node> 
+
+</launch>
