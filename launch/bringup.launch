@@ -2,8 +2,14 @@
   <arg name="prefix" default="rNESH"/>
   <arg name="model" default="$(find oav_description)/urdf/oav_v1.urdf.xacro"/>
   <arg name="use_ros_control_for_base" default="true"/>
-  <arg name="rviz" default="false"/>
   <arg name="rviz_conf" default="$(find oav_description)/rviz/1.rviz"/>
+
+  <arg name="teleop" default="true"/>
+  <arg name="gazebo" default="true"/>
+  <arg name="rviz" default="true"/>
+  <arg name="controller" default="false"/>    
+  <arg name="spawn_model" default="false"/>
+    
 
   <arg name="paused" default="true"/>
   <arg name="use_sim_time" default="true"/>
@@ -11,8 +17,8 @@
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
 
-
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+   <group if="$(arg gazebo)">
+   <include if="$(arg gazebo)" file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="$(arg paused)"/>
@@ -20,18 +26,25 @@
     <arg name="headless" value="$(arg headless)"/>
     <arg name="world_name" default="$(find oav_mapping)/worlds/1.world"/>
   </include>
-
+  
   <include file="$(find oav_description)/launch/model_spawner.launch">
     <arg name="prefix" value="$(arg prefix)"/>
-    <arg name="model" value="$(arg model)"/>
-    <arg name="use_ros_control_for_base" value="$(arg use_ros_control_for_base)"/>
-    <arg name="gazebo" value="true"/>
-    <arg name="rviz" value="$(arg rviz)"/>
-    <arg name="rviz_conf" value="$(arg rviz_conf)"/>
-    
+    <arg name="model" value="$(arg model)"/>    
   </include>
+  </group>
+  
 
-  <node name="teleop_key" pkg="oav_mapping" type="keyboard_twist.py" output="screen">
+  <include if="$(arg rviz)" file="$(find oav_description)/launch/rviz.launch">
+    <arg name="prefix" value="$(arg prefix)"/>
+    <arg name="model" value="$(arg model)"/>    
+    <arg name="rviz_conf" value="$(arg rviz_conf)"/>    
+    <arg name="spawn_model" value="$(arg spawn_model)"/>    
+  </include>
+  
+
+  <include if="$(arg controller)" file="$(find oav_description)/launch/ctrl_spawner.launch" />
+
+  <node if="$(arg teleop)" name="teleop_key" pkg="oav_mapping" type="keyboard_twist.py" output="screen">
   <remap from="cmd_vel" to="/mobile_base_controller/cmd_vel"/>
   </node> 
 

@@ -1,7 +1,8 @@
 <launch>
     <arg name="prefix" default="rNESH"/>
     <arg name="rviz_conf" default="$(find oav_mapping)/config/rviz/gmapping.rviz"/>
-    <arg name="map_file" default="$(find oav_mapping)/maps/map_1/map.yaml"/>
+    <!--arg name="map_file" default="$(find oav_mapping)/maps/map_1/map.yaml"/-->
+        <arg name="map_file" default="$(find oav_mapping)/maps/map_2/map.yaml"/>
     
     <include file="$(find oav_mapping)/launch/bringup.launch">
         <arg name="prefix" value="$(arg prefix)"/>

@@ -1,0 +1,13 @@
+<launch>
+    <arg name="prefix" default="rNESH"/>
+    <arg name="rviz_conf" default="$(find oav_mapping)/config/rviz/iris_lama.rviz"/>
+    
+    <include file="$(find oav_mapping)/launch/bringup.launch">
+        <arg name="prefix" value="$(arg prefix)"/>
+        <arg name="rviz_conf" value="$(arg rviz_conf)"/>
+        <arg name="rviz" value="false"/>
+    </include>
+
+    <node pkg="rosbag" type="record" name="record" args="/tf $(arg prefix)/scan -o $(find oav_mapping)/bags/1.bag"/> 
+
+</launch>

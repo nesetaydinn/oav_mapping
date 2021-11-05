@@ -147,7 +147,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.02500000037252903
+      Size (m): 0.05000000074505806
       Style: Flat Squares
       Topic: /rNESH/scan
       Unreliable: false
@@ -191,7 +191,7 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Angle: -1.5800000429153442
+      Angle: -1.574998378753662
       Class: rviz/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
@@ -201,10 +201,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Scale: 25.21373176574707
+      Scale: 27.730791091918945
       Target Frame: <Fixed Frame>
-      X: 2.763457775115967
-      Y: 0.93781977891922
+      X: 0
+      Y: 0
     Saved: ~
 Window Geometry:
   Displays:

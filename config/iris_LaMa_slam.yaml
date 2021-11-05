@@ -1,0 +1,37 @@
+global_frame_id: "$(arg prefix)/map"              #The frame attached to the map
+odom_frame_id: "$(arg prefix)/odom"               #The frame attached to the odometry system
+base_frame_id: "$(arg prefix)/base_footprint"          #The frame attached to the mobile base
+scan_topic: "$(arg prefix)/front_laser_scan"                 #Laser scan topic to subscribe
+transform_tolerance: 0.1            #Defines how long map->odom transform is good for by future dating tf
+initial_pos_x: 0                    #Initial x position
+initial_pos_y: 0                    #Initial y position
+initial_pos_a: 0                    #Initial rotation (or angle)
+d_thresh: 0.01                      #Traveled distance to accumulate before updating
+a_thresh: 0.25                      #Angular motion to accumulate before updating
+l2_max: 0.5                         #Maximum distance to use in the dynamic Euclidean distance map
+resolution: 0.05                    #Resolution of the grid maps
+patch_size: 32                      #Length of a patch
+strategy: "gn"                      #Scan matching optimization strategy, GaussNewton ("gm") or Levenberg Marquard ("lm")
+max_iterations: 100                 #Maximum number of interations performed by the optimizer
+use_compression: false              #Should the maps be compressed
+compression_algorithm: "lz4"        #Compression algorithm to use, lz4 or zstd
+cache_size: 100                     #Size of the LRU used during online data compression
+mrange: 16                          #Maximum laser scan range
+beam_step: 1                        #Number of beams to step (or skip) in each scan
+truncate: 0.0                       #Truncate the laser scan range from start to "middle" (0.0 means no truncation)
+truncate_ray: 0.0                   #Truncate the laser scan range (or ray) from "middle" to end (0.0 means no truncation)
+map_publish_period:  5              #How long between updates to the map
+transient_map:  false               #True to only keep the most recent portion of the map "sensed" by the latest surface 
+create_summary: false
+
+#Particle Filter SLAM only
+d_thresh: 0.5                       #Traveled distance to accumulate before updating
+particles: 30                       #Number of particles to use
+seed: 0                             #RNG seed value, use 0 for a random seed from device
+threads: -1                         #Number of working threads, -1 means disabled and 0 will expand to the available number of cores
+sigma: 0.05                         #Measurement variance
+lgain: 3.0                          #Gain value for smoothing the particles likelihood
+srr: 0.1                            #Odometry error in rotation as a function of rotation
+str: 0.2                            #Odometry error in rotation as a function of translation
+stt: 0.1                            #Odometry error in traslation as a function of translation
+srt: 0.1                            #Odometry error in translation as a funciton of rotation
